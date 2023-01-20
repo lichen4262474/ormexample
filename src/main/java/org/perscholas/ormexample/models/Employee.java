@@ -1,12 +1,18 @@
 package org.perscholas.ormexample.models;
 
 import java.util.Date;
+import java.util.List;
+
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -27,6 +33,12 @@ import lombok.experimental.FieldDefaults;
 
 @Entity
 @Table(name = "emp")
+@NamedQueries({
+	@NamedQuery(name = "getAll", query = "from Employee"),
+	@NamedQuery(name = "getById", query = "from Employee where id = :id")
+})
+
+
 public class Employee {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,4 +51,9 @@ public class Employee {
 	@NonNull
 	String password;
 	
+	@ManyToMany
+	List<Department> dep;
+
+	
 }
+

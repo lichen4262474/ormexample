@@ -21,6 +21,7 @@
         <property name="current_session_context_class">thread</property>
 
         <mapping class="org.perscholas.ormexample.models.Employee" />
+        <mapping class="org.perscholas.ormexample.models.Department" />
 
     </session-factory>
 </hibernate-configuration>
