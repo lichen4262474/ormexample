@@ -56,13 +56,30 @@ public class App {
     		tx = session.beginTransaction();
     		// transient mode
     		Employee e = new Employee("jafer", new Date(),"password");
-    		Employee e2 = new Employee("jafer", new Date(),"password");
+    		Employee e2 = new Employee("tim", new Date(),"password");
+    		Department d = new Department(1,"marketing");
+    		Department d2 = new Department(2,"IT");
 
     		// persist mode
+    		session.persist(d);
+    		session.persist(d2);
     		session.persist(e);
     		session.persist(e2);
     		
+    		
+    		
     		tx.commit();
+    		System.out.println("-----");
+    		System.out.println(tx.getStatus());
+    		System.out.println("-----");
+
+    		tx = session.beginTransaction();
+    		e.addDepartment(d2);
+    		session.merge(e);
+    		tx.commit();
+    		System.out.println("-----");
+    		System.out.println(tx.getStatus());
+    		System.out.println("-----");
     		List<Object[]> obj = session.createQuery("select name from Employee", Object[].class).getResultList();
     		
     		
